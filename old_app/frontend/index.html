@@ -1,0 +1,85 @@
+<html>
+
+<head>
+    <title>Scaling Applications With Kafka</title>
+    <link rel="stylesheet" href="./style/style-light.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100;200;300;400;500;600;700&family=Roboto:wght@300;400;500;700;900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <section class="container">
+        <div class="grid-container">
+            <div class="Banner">
+                <section class="bar">
+                    <label class="appname">Scaling Apps With Kafka</label>
+                    <label class="info">Interactive Example</label>
+                </section>
+            </div>
+            <section class="phonearea">
+                <div class="Phone">
+                    <phone-element id="phoneview"></phone-element>
+                    <script>
+                        var supportTest = 'customElements' in window;
+                        console.log('Supports web components = ' + supportTest);
+                        if (supportTest == false) {
+                            window.alert(
+                                'If you see this alert, it means this example is not compatible with your browser. This example uses Web Components - a technology supported in the latest versions of Firefox, Chrome and Safari. Please update your browser to the latest release.'
+                            );
+                        }
+                    </script>
+                </div>
+                <section class="linksarea">
+                    <div class="linkstitle">Scaling OpenShift Apps With Kafka & Mongo</div>
+                    <div class="scalinglink"> - Capacity Planning [Article]</div>
+                    <div class="scalinglink"> - Scaling Apps With Kafka [Code Pattern]</div>
+                    <div class="scalinglink"> - Scaling Options And Comparisons [Article]</div>
+                    <div class="scalinglink"> - Scaling Apps On OpenShift [Video]</div>
+                    <div class="scalinglink"> - Scaling Workshop [Event]</div>
+                </section>
+            </section>
+            <section class="architecturearea">
+                <architecture-element></architecture-element>
+                <section class="management">
+                    <canvas id="connector" class="connector"></canvas>
+                    <div class="controls">
+                        <slider-element title="rate of orders" left="slow" right="fast"></slider-element>
+                        <!-- <slider-element title="number of couriers" left="low" right="high"></slider-element> -->
+                        <slider-element title="speed of couriers" left="slow" right="fast"></slider-element>
+                        <slider-element title="speed of kitchens" left="slow" right="fast"></slider-element>
+                        <section class="controlbuttons">
+                            <button class="controlbutton" id="startbutton">START</button>
+                            <button class="controlbutton" id="resetbutton">RESET</button>
+                        </section>
+                    </div>
+                    <div class="analysis">
+                        <graph-element></graph-element>
+                    </div>
+                </section>
+            </section>
+        </div>
+</body>
+<!-- lodash cdn dev -->
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+<!-- uuid cdn -->
+<script src="https://unpkg.com/uuid@latest/dist/umd/uuidv4.min.js"></script>
+<script src="./components/clientHelpers/backendConfig.js"></script>
+<script src="./components/clientHelpers/kitchenAPI.js"></script>
+<script src="./components/clientHelpers/ordersAPI.js"></script>
+<script src="./components/clientHelpers/favoritesAPI.js"></script>
+<script src="./components/controls/loadgenerator.js"></script>
+<script src="./components/controls/architectureupdater.js"></script>
+<script src="./components/navigationbutton.js"></script>
+<script src="./components/navigation.js"></script>
+<script src="./components/phone.js"></script>
+<script src="./components/restaurant.js"></script>
+<script src="./components/menuitem.js"></script>
+<script src="./components/taste.js"></script>
+<script src="./components/receipt.js"></script>
+<script src="./components/order.js"></script>
+<script src="./components/slider.js"></script>
+<script src="./components/architecture.js"></script>
+<script src="./components/graph.js"></script>
+
+</html>

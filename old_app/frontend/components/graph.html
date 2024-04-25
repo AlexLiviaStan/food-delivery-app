@@ -1,0 +1,63 @@
+<style>
+    .percentage {
+        height: 40px;
+        font-size: 14px;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        justify-items: center;
+        margin: 5px;
+        margin-left: 2px;
+        font-weight: normal;
+        color: #569BC6;
+    }
+
+    .infobox {}
+
+    .counts {
+        display: flex;
+        flex-direction: row;
+        height: 80px;
+        width: 100%;
+        justify-content: space-around;
+    }
+
+    .countblock{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .countlabel {
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+    .orders{
+        color: #FF7E00;
+    }
+
+    .fulfillment{
+        color: #569BC6;
+    }
+
+    .count{
+        padding-top:20px;
+        text-align: right;
+    }
+
+</style>
+<section class="infobox">
+    <section class="counts">
+        <div class="countblock orders">
+            <label class="countlabel">ORDERS</label>
+            <label class="count" id="ordersplacedcount">999</label>
+        </div>
+        <div class="countblock fulfillment">
+            <label class="countlabel">FULFILLMENT</label>
+            <label class="count" id="ordersfulfilledcount">1245</label>
+        </div>
+    </section>
+    <canvas id="graph" width="330" height="120"></canvas>
+</section>
+<h2 class="percentage" id="percent"></h2>

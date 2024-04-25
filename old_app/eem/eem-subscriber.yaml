@@ -1,0 +1,90 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: external-app-eem-subscriber
+spec:
+  selector:
+    matchLabels:
+      name: external-app-eem-subscriber
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: external-app-eem-subscriber
+    spec:
+      containers:
+        - image: anthonyamanse/eem-subscriber:1.0
+          name: external-app-eem-subscriber
+          env:
+            - name: REDIS_URL
+              value: 'redis-entity-b'
+            - name: REDIS_PORT
+              value: '6379'
+            - name: BACKEND_URL
+              value: 'http://PREVIOUS_CODE_PATTERN_URL'
+            # - name: CA_LOCATION
+            #   value: '/etc/event-gateway-tls/ca.pem'
+          envFrom:
+            - secretRef:
+                name: asyncapi-endpoint-credentials
+      #     volumeMounts:
+      #       - name: eg-ca-pem
+      #         mountPath: "/etc/event-gateway-tls"
+      #         readOnly: true
+      # volumes:
+      #   - name: eg-ca-pem
+      #     secret:
+      #       secretName: event-gateway-ca
+      #       items:
+      #       - key: ca.pem
+      #         path: ca.pem
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: external-app-eem-subscriber
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    name: external-app-eem-subscriber
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-entity-b
+spec:
+  selector:
+    matchLabels:
+      name: redis-entity-b
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: redis-entity-b
+        version: v1
+    spec:
+      containers:
+        - image: redis
+          name: redis
+          ports:
+            - containerPort: 6379
+          volumeMounts:
+            - mountPath: /data
+              name: data
+      volumes:
+      - name: data
+        emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-entity-b
+spec:
+  ports:
+    - port: 6379
+      targetPort: 6379
+  selector:
+    name: redis-entity-b
