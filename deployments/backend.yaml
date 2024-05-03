@@ -324,7 +324,7 @@ spec:
       imagePullSecrets:
         - name: all-icr-io
       containers:
-        - image: mcltn/realtimedata:1.0
+        - image: us.icr.io/vpc-demo-alex/realtimedata:3
           imagePullPolicy: Always
           name: realtimedata
           ports:
@@ -365,7 +365,7 @@ spec:
         name: status
     spec:
       containers:
-        - image: mcltn/statusservice:1.0
+        - image: us.icr.io/vpc-demo-alex/status:3
           imagePullPolicy: Always
           name: status
           ports:
