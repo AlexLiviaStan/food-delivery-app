@@ -17,7 +17,7 @@ spec:
         name: apiservice
     spec:
       containers:
-        - image: mcltn/apiservice:1.0
+        - image: us.icr.io/vpc-demo-alex/api:3
           name: apiservice
           imagePullPolicy: Always
           ports:
@@ -60,7 +60,7 @@ spec:
         name: courier
     spec:
       containers:
-        - image: mcltn/courierconsumer:1.0
+        - image: us.icr.io/vpc-demo-alex/courier:3
           imagePullPolicy: Always
           name: courier
           env:
@@ -133,7 +133,7 @@ spec:
     spec:
       containers:
         - name: kitchen
-          image: mcltn/kitchenconsumer:1.0
+          image: us.icr.io/vpc-demo-alex/kitchen:3
           imagePullPolicy: Always
           env:
             - name: MONGODB_REPLICA_HOSTNAMES
@@ -204,7 +204,7 @@ spec:
         name: orders
     spec:
       containers:
-        - image: mcltn/orderconsumer:1.0
+        - image: us.icr.io/vpc-demo-alex/order:3
           imagePullPolicy: Always
           name: orders
           env:
@@ -279,7 +279,7 @@ spec:
       imagePullSecrets:
         - name: all-icr-io
       containers:
-        - image: mcltn/poddata:1.0
+        - image: us.icr.io/vpc-demo-alex/consumerdata:3
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
