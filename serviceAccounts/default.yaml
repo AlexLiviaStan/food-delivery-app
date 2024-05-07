@@ -1,0 +1,10 @@
+kind: ServiceAccount
+apiVersion: v1
+metadata:
+  name: default
+  namespace: food-delivery-nmsp
+  uid: d7544aab-57cd-40cc-9cdd-d9f28777437d
+  resourceVersion: '1643973'
+  creationTimestamp: '2024-04-16T11:35:23Z'
+imagePullSecrets:
+  - name: all-icr-io
