@@ -1,4 +1,4 @@
-FROM node:12-alpine
+FROM --platform=linux/amd64 node:12-alpine
 
 RUN apk --no-cache add \
       bash \
