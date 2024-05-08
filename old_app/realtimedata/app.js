@@ -1,6 +1,9 @@
 const http = require('http');
 const WebSocket = require('ws');
 const url = require('url');
+console.log('Alex: L0 bootstrap_servers_1:',process.env.BOOTSTRAP_SERVERS);
+console.log('Alex: L0 bootstrap_servers_1:',process.env.BOOTSTRAP_SERVERS_1);
+
 const KafkaWrapper = require('./KafkaWrapper.js');
 const { admin } = require('./KafkaWrapper.js');
 
@@ -11,7 +14,7 @@ let PORT = process.env.PORT || 8080
 wss.on('connection', (ws, req) => {
     ws.PATHNAME = req.url
 })
-
+console.log('Alex: L0.1');
 server.on('upgrade', function upgrade(request, socket, head) {
     const pathname = url.parse(request.url).pathname;
     console.log(pathname)
@@ -28,7 +31,7 @@ server.on('upgrade', function upgrade(request, socket, head) {
         socket.destroy();
     }
 });
-
+console.log('Alex: L1');
 // send events to ws clients each second
 let eventsArray = []
 let eventsArraySendInterval = setInterval(() => {
@@ -42,7 +45,7 @@ let eventsArraySendInterval = setInterval(() => {
         });
     }
 }, 1000)
-
+console.log('Alex: L2');
 KafkaWrapper.consumer.on('ready', function() {
     console.log('The consumer has connected.');
     KafkaWrapper.consumer.subscribe(['orders']);
@@ -56,7 +59,7 @@ KafkaWrapper.consumer.on('ready', function() {
     // start server
     server.listen(PORT);
 }).on('data', data => {
-    // data 
+    // data
     // {
     //     value: <Buffer>,
     //     size: 257,
@@ -74,7 +77,7 @@ KafkaWrapper.consumer.on('ready', function() {
         dataObject.timestamp = data.timestamp
 
         // add filter for specific events only
-        if (dataObject.eventType == "orderRequested" || 
+        if (dataObject.eventType == "orderRequested" ||
             // dataObject.eventType == "orderCreated" ||
             // dataObject.eventType == "orderValidated" ||
             // dataObject.eventType == "courierMatched" ||
@@ -108,24 +111,24 @@ async function getOffsets() {
     let kitchen = await KafkaWrapper.admin.fetchOffsets({ groupId: 'kitchen-consumer-group', topic: 'orders'})
     let courier = await KafkaWrapper.admin.fetchOffsets({ groupId: 'courier-consumer-group', topic: 'orders'})
     let status = await KafkaWrapper.admin.fetchOffsets({ groupId: 'status-consumer-group', topic: 'orders'})
- 
+
     console.log('1 offset ################')
     console.log(orders)
     console.log(kitchen)
     console.log(courier)
     console.log(status)
- 
+
     orders = getSumOfPartitionsOffset(orders)
     kitchen = getSumOfPartitionsOffset(kitchen)
     courier = getSumOfPartitionsOffset(courier)
     status = getSumOfPartitionsOffset(status)
- 
+
     console.log('2 offset ################')
     console.log(orders)
     console.log(kitchen)
     console.log(courier)
     console.log(status)
- 
+
     let currentOffset = { orders, kitchen, courier, status }
     if (!previousOffset) {
         // console.log('no previous')
