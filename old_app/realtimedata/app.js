@@ -1,8 +1,6 @@
 const http = require('http');
 const WebSocket = require('ws');
 const url = require('url');
-console.log('Alex: L0 bootstrap_servers_1:',process.env.BOOTSTRAP_SERVERS);
-console.log('Alex: L0 bootstrap_servers_1:',process.env.BOOTSTRAP_SERVERS_1);
 
 const KafkaWrapper = require('./KafkaWrapper.js');
 const { admin } = require('./KafkaWrapper.js');
@@ -31,7 +29,7 @@ server.on('upgrade', function upgrade(request, socket, head) {
         socket.destroy();
     }
 });
-console.log('Alex: L1');
+
 // send events to ws clients each second
 let eventsArray = []
 let eventsArraySendInterval = setInterval(() => {
@@ -45,7 +43,7 @@ let eventsArraySendInterval = setInterval(() => {
         });
     }
 }, 1000)
-console.log('Alex: L2');
+
 KafkaWrapper.consumer.on('ready', function() {
     console.log('The consumer has connected.');
     KafkaWrapper.consumer.subscribe(['orders']);
