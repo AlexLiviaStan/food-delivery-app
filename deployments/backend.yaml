@@ -330,8 +330,31 @@ spec:
           ports:
             - containerPort: 8080
           env:
-            - name: BOOTSTRAP_SERVERS
-              value: 'kafka:9092'
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              valueFrom:
+                secretKeyRef:
+                  name: icd-secrets
+                  key: KAFKA_BOOTSTRAP_SERVERS
+            - name: KAFKA_SECURITY_PROTOCOL
+              valueFrom:
+                secretKeyRef:
+                  name: icd-secrets
+                  key: KAFKA_SECURITY_PROTOCOL
+            - name: KAFKA_SASL_MECHANISMS
+              valueFrom:
+                secretKeyRef:
+                  name: icd-secrets
+                  key: KAFKA_SASL_MECHANISMS
+            - name:  KAFKA_SASL_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: icd-secrets
+                  key:  KAFKA_SASL_USERNAME
+            - name:  KAFKA_SASL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: icd-secrets
+                  key: KAFKA_SASL_PASSWORD
 ---
 apiVersion: v1
 kind: Service
