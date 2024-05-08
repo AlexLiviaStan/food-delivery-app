@@ -23,10 +23,10 @@ class KafkaWrapper {
         let driver_options = {
             //'debug': 'all',
             'metadata.broker.list': brokers,
-            //'security.protocol': protocol,
-            //'sasl.mechanisms': mechanism,
-            //'sasl.username': username,
-            //'sasl.password': password,
+            'security.protocol': 'SASL_SSL',
+            'sasl.mechanisms': mechanism,
+            'sasl.username': username,
+            'sasl.password': password,
             'log.connection.close' : false,
             'enable.auto.commit': false,
             'statistics.interval.ms': 1000
@@ -79,26 +79,35 @@ class KafkaWrapper {
         let adminKafka = new KafkaJS({
             clientId: 'admin',
             brokers: brokers.split(','),
-            //ssl: true,
-            //sasl: {
-            //    mechanism,
-            //    username,
-            //    password
-            //}
+            ssl: true,
+            sasl: {
+                mechanism,
+                username,
+                password
+            }
+
         }).admin()
         this.admin = adminKafka
     }
-  
+
     on(event, callback) {
       this.consumer.on(event, callback)
     }
 }
 // const kafkaWrapper = new KafkaWrapper(process.env.KAFKA_CREDENTIALS)
-const kafkaWrapper = new KafkaWrapper(process.env.BOOTSTRAP_SERVERS,
+const bootstrap_servers_1 = 'broker-0-b1392rt9v4gd0bpb.kafka.svc10.us-south.eventstreams.cloud.ibm.com:9093,broker-5-b1392rt9v4gd0bpb.kafka.svc10.us-south.eventstreams.cloud.ibm.com:9093,broker-1-b1392rt9v4gd0bpb.kafka.svc10.us-south.eventstreams.cloud.ibm.com:9093,broker-2-b1392rt9v4gd0bpb.kafka.svc10.us-south.eventstreams.cloud.ibm.com:9093,broker-3-b1392rt9v4gd0bpb.kafka.svc10.us-south.eventstreams.cloud.ibm.com:9093,broker-4-b1392rt9v4gd0bpb.kafka.svc10.us-south.eventstreams.cloud.ibm.com:9093'
+const password = '7qs10VpEP8MvpWny4ZQQv55_VEo6f8ZPjFD7QHZrPqwO'
+const username = 'token'
+const mechanism = 'plain'
+const kafkaWrapper = new KafkaWrapper(//process.env.BOOTSTRAP_SERVERS,
+                                      bootstrap_servers_1,
                                       process.env.SECURITY_PROTOCOL,
-                                      process.env.SASL_MECHANISMS,
-                                      process.env.SASL_USERNAME,
-                                      process.env.SASL_PASSWORD)
+                                      mechanism//process.env.SASL_MECHANISMS
+                                      ,
+                                      username,
+                                      //process.env.SASL_USERNAME,
+                                      password//process.env.SASL_PASSWORD
+                                    )
 Object.freeze(kafkaWrapper)
 
 module.exports = kafkaWrapper
