@@ -20,10 +20,10 @@ class KafkaWrapper {
         let driver_options = {
             //'debug': 'all',
             'metadata.broker.list': brokers,
-            //'security.protocol': protocol,
-            //'sasl.mechanisms': mechanism,
-            //'sasl.username': username,
-            //'sasl.password': password,
+            'security.protocol': protocol,
+            'sasl.mechanisms': mechanism,
+            'sasl.username': username,
+            'sasl.password': password,
             'log.connection.close' : false,
             'enable.auto.commit': false
         };
@@ -91,7 +91,7 @@ class KafkaWrapper {
 
         this.producer = producer
     }
-  
+
     on(event, callback) {
       this.consumer.on(event, callback)
     }
@@ -131,11 +131,12 @@ class KafkaWrapper {
 }
 
 // const kafkaWrapper = new KafkaWrapper(process.env.KAFKA_CREDENTIALS)
-const kafkaWrapper = new KafkaWrapper(process.env.BOOTSTRAP_SERVERS,
-                                      process.env.SECURITY_PROTOCOL,
-                                      process.env.SASL_MECHANISMS,
-                                      process.env.SASL_USERNAME,
-                                      process.env.SASL_PASSWORD)
+const kafkaWrapper = new KafkaWrapper(process.env.KAFKA_BOOTSTRAP_SERVERS,
+                                      process.env.KAFKA_SECURITY_PROTOCOL,
+                                      process.env.KAFKA_SASL_MECHANISMS,
+                                      process.env.KAFKA_SASL_USERNAME,
+                                      process.env.KAFKA_SASL_PASSWORD)
+
 Object.freeze(kafkaWrapper)
 
 module.exports = kafkaWrapper
