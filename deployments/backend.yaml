@@ -25,7 +25,7 @@ spec:
           env:
             - name: STATUS_SERVICE
               value: 'http://status:8080'
-             - name: KAFKA_BOOTSTRAP_SERVERS
+            - name: KAFKA_BOOTSTRAP_SERVERS
               valueFrom:
                 secretKeyRef:
                   name: icd-secrets
