@@ -358,7 +358,7 @@ spec:
       labels:
         name: podconsumerdata
     spec:
-      serviceAccountName: deployer
+      serviceAccountName: default
       imagePullSecrets:
         - name: all-icr-io
       containers:
@@ -368,7 +368,7 @@ spec:
             - containerPort: 8080
           name: podconsumerdata
           env:
-            - name: POD_NAMESPACE
+            - name: food-delivery-nmsp
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.namespace
