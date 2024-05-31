@@ -1,3 +1,4 @@
+
 const Kafka = require('node-rdkafka');
 
 const { Kafka: KafkaJS } = require('kafkajs')
@@ -20,6 +21,26 @@ class KafkaWrapper {
         //     'enable.auto.commit': false,
         //     'statistics.interval.ms': 1000
         // };
+
+        // const kafkaWrapper = new KafkaWrapper(process.env.KAFKA_CREDENTIALS)
+         //brokers = 'broker-0-b1392rt9v4gd0bpb.kafka.svc10.us-south.eventstreams.cloud.ibm.com:9093'
+         //password = '7qs10VpEP8MvpWny4ZQQv55_VEo6f8ZPjFD7QHZrPqwO'
+         //username = 'token'
+         //mechanism = 'PLAIN'
+
+         /*console.log('KAFKA_BOOTSTRAP_SERVERS '+ process.env.KAFKA_BOOTSTRAP_SERVERS);
+
+         console.log('KAFKA_SECURITY_PROTOCOL'+ process.env.KAFKA_SECURITY_PROTOCOL);
+
+         console.log('KAFKA_SECURITY_MECHANISM '+ process.env.KAFKA_SASL_MECHANISMS);
+
+         console.log('KAFKA_SASL_USERNAME '+ process.env.KAFKA_SASL_USERNAME);
+
+         console.log('KAFKA_SASL_PASSWORD '+ process.env.KAFKA_SASL_PASSWORD);
+        */
+
+
+
         let driver_options = {
             //'debug': 'all',
             'metadata.broker.list': brokers,
@@ -29,7 +50,8 @@ class KafkaWrapper {
             'sasl.password': password,
             'log.connection.close' : false,
             'enable.auto.commit': false,
-            'statistics.interval.ms': 1000
+            'statistics.interval.ms': 1000,
+            'ssl.ca.location': '/etc/ssl/certs'
         };
         let consumerConfig = {
             'client.id': 'realtimedata-consumer',
@@ -85,7 +107,6 @@ class KafkaWrapper {
                 username,
                 password
             }
-
         }).admin()
         this.admin = adminKafka
     }
@@ -94,12 +115,13 @@ class KafkaWrapper {
       this.consumer.on(event, callback)
     }
 }
+// const kafkaWrapper = new KafkaWrapper(process.env.KAFKA_CREDENTIALS)
+
 const kafkaWrapper = new KafkaWrapper(process.env.KAFKA_BOOTSTRAP_SERVERS,
                                       process.env.KAFKA_SECURITY_PROTOCOL,
                                       process.env.KAFKA_SASL_MECHANISMS,
                                       process.env.KAFKA_SASL_USERNAME,
-                                      process.env.KAFKA_SASL_PASSWORD
-                                    )
+                                      process.env.KAFKA_SASL_PASSWORD)
 Object.freeze(kafkaWrapper)
 
 module.exports = kafkaWrapper
