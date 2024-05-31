@@ -17,14 +17,16 @@ class KafkaProducer {
         //     'log.connection.close' : false
         // };
         let driver_options = {
-            //'debug': 'all',
+            'debug': 'all',
             'metadata.broker.list': brokers,
-            //'security.protocol': protocol,
-            //'sasl.mechanisms': mechanism,
-            //'sasl.username': username,
-            //'sasl.password': password,
-            'log.connection.close' : false
+            'security.protocol': protocol,
+            'sasl.mechanisms': mechanism,
+            'sasl.username': username,
+            'sasl.password': password,
+            'log.connection.close' : false,
+            'ssl.ca.location': '/etc/ssl/certs'
         };
+
         let producerConfig = {
             'client.id': 'example-orders-producer',
             'dr_msg_cb': true  // Enable delivery reports with message payload
@@ -43,12 +45,12 @@ class KafkaProducer {
         producer.setPollInterval(100)
 
         // debug
-        // producer.on('event.log', function(log) {
-        //     console.log(log);
-        // });
+         producer.on('event.log', function(log) {
+            console.log(log);
+        });
 
         // Register error listener
-        producer.on('event.error', function(err) {
+        producer.on('error', function(err) {
             console.error('Error from producer:' + JSON.stringify(err));
         });
 
@@ -62,13 +64,15 @@ class KafkaProducer {
                 console.log('Message produced, partition: ' + dr.partition + ' offset: ' + dr.offset);
             }
         });
-        producer.connect()
 
+        
+        producer.connect()
         this.producer = producer
     }
-  
+
     on(event, callback) {
-      this.producer.on(event, callback)
+      console.log("Event "+event);
+      this.producer.on(event, callback);
     }
 
     publishOrder(order, simulatorConfig, callback) {
@@ -142,11 +146,11 @@ class KafkaProducer {
 }
 
 // const kafkaProducer = new KafkaProducer(process.env.KAFKA_CREDENTIALS)
-const kafkaProducer = new KafkaProducer(process.env.BOOTSTRAP_SERVERS,
-                                        process.env.SECURITY_PROTOCOL,
-                                        process.env.SASL_MECHANISMS,
-                                        process.env.SASL_USERNAME,
-                                        process.env.SASL_PASSWORD)
+const kafkaProducer = new KafkaProducer(process.env.KAFKA_BOOTSTRAP_SERVERS,
+                                        process.env.KAFKA_SECURITY_PROTOCOL,
+                                        process.env.KAFKA_SASL_MECHANISMS,
+                                        process.env.KAFKA_SASL_USERNAME,
+                                        process.env.KAFKA_SASL_PASSWORD)
 Object.freeze(kafkaProducer)
 
 module.exports = kafkaProducer
