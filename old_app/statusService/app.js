@@ -5,9 +5,22 @@ const app = express();
 const cors = require('cors');
 
 // connect to redis localhost
-const redis = new Redis({
+console.log(`REDIS URL ${process.env.REDIS_URL}`);
+console.log(`REDIS listening on port ${process.env.REDIS_PORT}`);
+
+
+/*const redis = new Redis({
     host: process.env.REDIS_URL,
     port: process.env.REDIS_PORT,
+    db: 0
+})
+*/
+const redis = new Redis({
+    host: '693e81c7-f7ba-4235-9817-8b008b66ae17.c7e0lq3d0hm8lbg600bg.databases.appdomain.cloud',
+    port: '31489',
+    tls: {
+        host: '693e81c7-f7ba-4235-9817-8b008b66ae17.c7e0lq3d0hm8lbg600bg.databases.appdomain.cloud',
+    },
     db: 0
 })
 
