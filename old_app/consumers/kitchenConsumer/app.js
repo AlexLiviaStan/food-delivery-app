@@ -13,6 +13,9 @@ const MONGODB_USER = process.env.MONGODB_USER
 const MONGODB_PASSWORD = process.env.MONGODB_PASSWORD
 
 console.log('Loading...')
+mongoose.connection.on('connected', () => console.log('MONGODB connected'));
+mongoose.connection.on('close', () => console.log('MONGODB closed'));
+
 
 mongoose
     .connect('mongodb://' + MONGODB_REPLICA_HOSTNAMES + '/', {
