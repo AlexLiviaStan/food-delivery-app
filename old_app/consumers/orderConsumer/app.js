@@ -28,6 +28,10 @@ mongoose
         process.exit(1)
     });
 
+mongoose.connection.on('connected', () => console.log('MONGODB connected'));
+mongoose.connection.on('close', () => console.log('MONGODB closed'));
+
+
 KafkaWrapper.consumer.on('ready', function() {
     console.log('The consumer has connected.');
     KafkaWrapper.consumer.subscribe(['orders']);
