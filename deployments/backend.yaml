@@ -506,6 +506,15 @@ spec:
                 secretKeyRef:
                   name: icd-secrets
                   key: KAFKA_SASL_PASSWORD
+          volumeMounts:
+            - name: redis-cert
+              mountPath: /home/node/app/redis.pem
+              subPath: redis.pem
+              readOnly: true
+      volumes:
+        - name: redis-cert
+          secret:
+            secretName: redis-cert
 ---
 apiVersion: v1
 kind: Service
