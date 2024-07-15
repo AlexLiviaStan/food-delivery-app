@@ -478,9 +478,9 @@ spec:
             - containerPort: 8080
           env:
             - name: REDIS_URL
-              value: 'redis'
+              value: '693e81c7-f7ba-4235-9817-8b008b66ae17.c7e0lq3d0hm8lbg600bg.databases.appdomain.cloud'
             - name: REDIS_PORT
-              value: '6379'
+              value: '31489'
             - name: KAFKA_BOOTSTRAP_SERVERS
               valueFrom:
                 secretKeyRef:
@@ -508,7 +508,7 @@ spec:
                   key: KAFKA_SASL_PASSWORD
           volumeMounts:
             - name: redis-cert
-              mountPath: /home/node/app/redis.pem
+              mountPath: /usr/src/app/redis.pem
               subPath: redis.pem
               readOnly: true
       volumes:
