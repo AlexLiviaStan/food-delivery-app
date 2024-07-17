@@ -368,7 +368,7 @@ spec:
             - containerPort: 8080
           name: podconsumerdata
           env:
-            - name: food-delivery-nmsp
+            - name: POD_NAMESPACE
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.namespace
