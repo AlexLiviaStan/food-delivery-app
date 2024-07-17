@@ -4,7 +4,11 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 
+
+
+
 // connect to redis localhost
+
 console.log(`REDIS URL ${process.env.REDIS_URL}`);
 console.log(`REDIS listening on port ${process.env.REDIS_PORT}`);
 
@@ -19,10 +23,15 @@ const redis = new Redis({
     host: '693e81c7-f7ba-4235-9817-8b008b66ae17.c7e0lq3d0hm8lbg600bg.databases.appdomain.cloud',
     port: '31489',
     tls: {
-        host: '693e81c7-f7ba-4235-9817-8b008b66ae17.c7e0lq3d0hm8lbg600bg.databases.appdomain.cloud',
+        ca: 'redis.pm',
+        rejectUnauthorized: false,
     },
+    username: 'ibm_cloud_82f74f1f_517a_4adf_8800_d452ad5da6f3',
+    password: '5e6ab628d2e9a5b174aa36e3b5ed2e6cbccd2f022aea61a2a6ead8b278dbb31a',
     db: 0
 })
+console.log(`Redis setup done`);
+
 
 const PORT = process.env.PORT || 8080
 
