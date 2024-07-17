@@ -14,3 +14,45 @@ spec:
             name: example-food
             port:
               number: 8090
+      - path: /createOrder
+        pathType: Prefix
+        backend:
+          service:
+            name: apiservice
+            port:
+              number: 8080
+      - path: /status
+        pathType: Prefix
+        backend:
+          service:
+            name: apiservice
+            port:
+              number: 8080
+      - path: /restaurants
+        pathType: Prefix
+        backend:
+          service:
+            name: apiservice
+            port:
+              number: 8080
+      - path: /user
+        pathType: Prefix
+        backend:
+          service:
+            name: apiservice
+            port:
+              number: 8080
+      - path: /events
+        pathType: Prefix
+        backend:
+          service:
+            name: realtimedata
+            port:
+              number: 8080
+      - path: /consumers
+        pathType: Prefix
+        backend:
+          service:
+            name: podconsumerdata
+            port:
+              number: 8080
